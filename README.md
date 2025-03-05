@@ -30,7 +30,7 @@ date ranges:
 3    HYG 2007-04-11 2025-03-05   4505
 ```
 
-Running `xget_write_prices.r` just gets and price data, with sample output
+Running `xget_write_prices.r` just gets price data, with sample output
 ```
 output directory: ETF/20250305 
 
