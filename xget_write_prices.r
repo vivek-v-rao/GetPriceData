@@ -11,7 +11,7 @@ output_dir <- paste0("futures/", format(Sys.Date(), "%Y%m%d"))
 ticker_file <- "good_futures_symbols.txt" # "futures_symbols.txt" # "tickers.txt" # Set to "" for no file, or e.g., "tickers.txt"
 summary_df <- TRUE           # Set to TRUE to print summary dataframe
 include_symbol_in_colnames <- FALSE  # Set to FALSE to exclude symbol from column names
-max_sym = 1 # 10^6
+max_sym <- 10^6
 
 # Determine symbols based on ticker_file
 if (ticker_file != "" && file.exists(ticker_file)) {
