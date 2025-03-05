@@ -1,5 +1,5 @@
 ### GetPriceData
-Get historical stock or futures price data using R
+Get historical stock or futures price data, either daily or intraday using the R quantmod package
 
 Running the script `xget_prices_compute_returns.r` to get daily prices and print
 return statistics gives sample output
