@@ -41,6 +41,17 @@ Summary of Downloaded Data:
 3    HYG     4505 2007-04-11 2025-03-05
 ```
 
+Running `xcombine_price_data.r` combines data from per-symbol prices file into a table, getting
+a field such as the closing price, with sample output
+```
+read data for HYG from ETF/20250305/HYG.csv 4505 days from 2007-04-11 to 2025-03-05 
+read data for QQQ from ETF/20250305/QQQ.csv 6331 days from 2000-01-03 to 2025-03-05 
+read data for SPY from ETF/20250305/SPY.csv 6331 days from 2000-01-03 to 2025-03-05 
+read data for TLT from ETF/20250305/TLT.csv 5687 days from 2002-07-30 to 2025-03-05 
+
+Combined prices written to temp.csv
+```
+
 Running `xget_write_intraday_prices.r` to get intraday prices gives sample output
 
 ```
