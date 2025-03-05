@@ -5,13 +5,14 @@ source("price_utils.r") # download_stock_data()
 # Example usage
 start_date <- "2000-01-01"
 end_date <- "2100-01-01"
-verbose <- TRUE
+verbose <- FALSE
 # create an output subdirectory named by the current date
-output_dir <- paste0("futures/", format(Sys.Date(), "%Y%m%d"))
-ticker_file <- "good_futures_symbols.txt" # "futures_symbols.txt" # "tickers.txt" # Set to "" for no file, or e.g., "tickers.txt"
+output_dir <- paste0("ETF/", format(Sys.Date(), "%Y%m%d"))
+ticker_file <- "etf_symbols.txt"
 summary_df <- TRUE           # Set to TRUE to print summary dataframe
 include_symbol_in_colnames <- FALSE  # Set to FALSE to exclude symbol from column names
-max_sym <- 10^6
+max_sym <- 10 # maximum # of symbols for which data obtained
+cat("\noutput directory:", output_dir, "\n")
 
 # Determine symbols based on ticker_file
 if (ticker_file != "" && file.exists(ticker_file)) {
@@ -25,6 +26,6 @@ if (ticker_file != "" && file.exists(ticker_file)) {
 if (length(symbols) > max_sym) symbols <- symbols[1:max_sym]
 
 # Download data and save to files
-download_stock_data(symbols, start_date, end_date, output_dir, 
-                    verbose = verbose, summary_df = summary_df,
-                    include_symbol_in_colnames = include_symbol_in_colnames)
+suppressWarnings(download_stock_data(symbols, start_date, end_date,
+	output_dir, verbose = verbose, summary_df = summary_df,
+	include_symbol_in_colnames = include_symbol_in_colnames))

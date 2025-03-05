@@ -6,13 +6,13 @@ source("price_utils.r") # download_intraday_data()
 # Example usage
 start_date <- "2000-01-01"
 end_date <- "2025-03-05"
-verbose <- FALSE # TRUE
+verbose <- TRUE
 # create an output subdirectory named by the current date
 ticker_file <- "good_futures_symbols.txt" # "futures_symbols.txt" # "tickers.txt" # Set to "" for no file, or e.g., "tickers.txt"
 summary_df <- TRUE           # Set to TRUE to print summary dataframe
 include_symbol_in_colnames <- FALSE  # Set to FALSE to exclude symbol from column names
-max_sym = 10^6
-interval <- "1min"
+max_sym = 5 # max number of symbols for which data downloaded
+interval <- "1min" # can also be 2min, 5min, 15min, 60min, 90min, hour
 output_dir <- paste0("futures/", interval, "/",
 	format(Sys.Date(), "%Y%m%d"))
 
@@ -30,8 +30,8 @@ if (length(symbols) > max_sym) symbols <- symbols[1:max_sym]
 cat("\n#symbols:", length(symbols))
 cat("\noutput directory:", output_dir, "\n\n")
 # Download data and save to files
-download_intraday_data(symbols, start_date, end_date,
+suppressWarnings(download_intraday_data(symbols, start_date, end_date,
 	interval = interval, output_dir = output_dir, verbose = verbose,
 	summary_df = summary_df,
-	include_symbol_in_colnames = include_symbol_in_colnames)
+	include_symbol_in_colnames = include_symbol_in_colnames))
 cat("\n Time elapsed(s): ", (proc.time() - .proctime00)[3],"\n")

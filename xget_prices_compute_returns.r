@@ -1,19 +1,16 @@
-# Downloads stock prices, computes returns and stats, optionally saves to CSV.
-
-# Load required library quietly
-# suppressPackageStartupMessages(library(quantmod))
-# Load moments package for skew and kurtosis
-# suppressPackageStartupMessages(library(moments))
+# Downloads stock prices, computes returns and stats, optionally
+# saves to CSV.
 
 source("price_utils.r")
+source("utils.r")
 
-start_date <- "2024-01-01"
+start_date <- "2000-01-01"
 end_date <- "2100-01-01"
 trading_days <- 252       # Standard number of trading days in a year
 rf_rate <- 0.03           # 3% annual risk-free rate
-verbose <- FALSE
+verbose <- TRUE
 output_prices_file <- "prices.csv"
-ticker_file <- "" # "futures_symbols.txt"         # Set to "" for no file, or e.g., "tickers.txt"
+ticker_file <- "etf_symbols.txt" # "futures_symbols.txt" Set to "" for no file
 max_sym = 100
 
 # Determine symbols based on ticker_file
@@ -27,13 +24,17 @@ if (ticker_file != "" && file.exists(ticker_file)) {
 }
 if (length(symbols) > max_sym) symbols <- symbols[1:max_sym]
 
-# Get prices
+sink(nullfile())
 prices <- get_prices(symbols, start_date, end_date, verbose = verbose)
+sink()
 
 # Analyze returns with correlation matrix
-x <- analyze_returns(prices, trading_days, rf_rate, verbose = verbose,
-	 print_correlation = TRUE)
+x <- suppressWarnings(analyze_returns(prices, trading_days, rf_rate,
+	verbose = verbose, print_correlation = TRUE))
 if (output_prices_file != "") {
 	write.table(x$prices, output_prices_file, sep = ",", quote = FALSE,
 	row.names = FALSE)
 	cat("\nwrote price table to", output_prices_file, "\n")}
+x$prices$Date <- NULL
+cat("\ndate ranges:\n")
+print(non_na_ranges(x$prices))

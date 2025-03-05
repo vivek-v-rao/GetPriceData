@@ -128,9 +128,8 @@ download_stock_data <- function(symbols, start_date, end_date, output_dir,
   for (symbol in symbols) {
     tryCatch({
       # Get stock data
-      stock_data <- getSymbols(symbol, from = start_date, to = end_date, 
-                              auto.assign = FALSE)
-      
+      stock_data <- getSymbols(symbol, from = start_date,
+		  to = end_date, auto.assign = FALSE)
       # Define column names based on include_symbol_in_colnames
       if (include_symbol_in_colnames) {
         data_cols <- c("Open", "High", "Low", "Close", "Volume")
@@ -169,9 +168,7 @@ download_stock_data <- function(symbols, start_date, end_date, output_dir,
       }
       
       if (verbose) cat("saved data for", symbol, "to", output_file, "\n")
-    }, error = function(e) {
-      cat("Error downloading", symbol, ":", conditionMessage(e), "\n")
-    })
+  }, error = function(e) {})
   }
   
   # Optionally create and print summary dataframe
@@ -359,15 +356,14 @@ download_intraday_data <- function(symbols, start_date, end_date, interval = "5m
       if (summary_df) {
         summary_list[[symbol]] <- data.frame(
           Symbol = symbol,
-          Num_Timestamps = nrow(df),
-          First_Timestamp = as.character(min(index(stock_data))),
-          Last_Timestamp = as.character(max(index(stock_data))),
+          NumTimes = nrow(df),
+          FirstTime = as.character(min(index(stock_data))),
+          LastTime = as.character(max(index(stock_data))),
           stringsAsFactors = FALSE,
           row.names = NULL  # Prevent row names from affecting output
         )
       }
       
-      if (verbose) cat("Saved intraday data for", symbol, "to", output_file, "\n")
     }, error = function(e) {
       cat("Error downloading", symbol, ":", conditionMessage(e), "\n")
     })
