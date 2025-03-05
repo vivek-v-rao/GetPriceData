@@ -30,6 +30,17 @@ date ranges:
 3    HYG 2007-04-11 2025-03-05   4505
 ```
 
+Running `xget_write_prices.r` just gets and price data, with sample output
+```
+output directory: ETF/20250305 
+
+Summary of Downloaded Data:
+  Symbol Num_Days First_Date  Last_Date
+1    SPY     6331 2000-01-03 2025-03-05
+2    TLT     5687 2002-07-30 2025-03-05
+3    HYG     4505 2007-04-11 2025-03-05
+```
+
 Running `xget_write_intraday_prices.r` to get intraday prices gives sample output
 
 ```
